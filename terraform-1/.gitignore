@@ -1,0 +1,12 @@
+# Ignore Terraform state files
+*.tfstate
+*.tfstate.backup
+
+# Ignore the Terraform lock file
+*.lock.hcl
+
+# Ignore the .terraform directory
+.terraform/
+
+# Ignore sensitive JSON credentials
+*.json
