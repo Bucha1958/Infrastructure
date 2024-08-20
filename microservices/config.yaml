@@ -19,7 +19,7 @@ spec:
         - containerPort: 8080
         env:
         - name: PORT
-          value: "8080 "
+          value: "8080"
 
 ---
 apiVersion: v1
@@ -33,7 +33,7 @@ spec:
   ports:
   - protocol: TCP
     port: 5000
-    targetport: 8080 
+    targetPort: 8080 
 
 ---
 apiVersion: apps/v1
@@ -72,7 +72,7 @@ spec:
   ports:
   - protocol: TCP
     port: 8080
-    targetport: 8080
+    targetPort: 8080
 
 ---
 apiVersion: apps/v1
@@ -109,7 +109,7 @@ spec:
   ports:
   - protocol: TCP
     port: 3550
-    targetport: 3550
+    targetPort: 3550
 
 ---
 apiVersion: apps/v1
@@ -146,7 +146,7 @@ spec:
   ports:
   - protocol: TCP
     port: 50051
-    targetport: 50051
+    targetPort: 50051
 
 ---
 apiVersion: apps/v1
@@ -184,7 +184,7 @@ spec:
   ports:
   - protocol: TCP
     port: 7000
-    targetport: 7000
+    targetPort: 7000
 
 ---
 apiVersion: apps/v1
@@ -221,7 +221,7 @@ spec:
   ports:
   - protocol: TCP
     port: 50051
-    targetport: 50051 
+    targetPort: 50051 
 
 ---
 apiVersion: apps/v1
@@ -258,7 +258,7 @@ spec:
   ports:
   - protocol: TCP
     port: 9555
-    targetport: 9555
+    targetPort: 9555
 
 ---
 apiVersion: apps/v1
@@ -297,7 +297,7 @@ spec:
   ports:
   - protocol: TCP
     port: 7070
-    targetport: 7070 
+    targetPort: 7070 
 
 ---
 apiVersion: apps/v1
@@ -337,7 +337,7 @@ spec:
   ports:
   - protocol: TCP
     port: 6379
-    targetport: 6379
+    targetPort: 6379
 
 ---
 apiVersion: apps/v1
@@ -386,7 +386,7 @@ spec:
   ports:
   - protocol: TCP
     port: 5050
-    targetport: 5050 
+    targetPort: 5050 
 
 ---
 apiVersion: apps/v1
@@ -424,6 +424,8 @@ spec:
           value: "cartservice:7070"
         - name: AD_SERVICE_ADDR
           value: "adservice:9555"
+        - name: SHOPPING_ASSISTANT_SERVICE_ADDR
+          value: "shoppingassistantservice:80"
 
 ---
 apiVersion: v1
@@ -431,11 +433,11 @@ kind: Service
 metadata:
   name: frontend
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: frontend
   ports:
   - protocol: TCP
     port: 80 
-    targetport: 8080
-    nodeport: 30007
+    targetPort: 8080
+    nodePort: 30007
