@@ -64,3 +64,15 @@ output "cluster_endpoint" {
 output "cluster_ca_certificate" {
   value = google_container_cluster.primary.master_auth[0].cluster_ca_certificate
 }
+
+resource "null_resource" "deploy_microservices" {
+  depends_on = [google_container_cluster.primary]
+
+  provisioner "local-exec" {
+    command = <<EOT
+      gcloud container clusters get-credentials ${google_container_cluster.primary.name} --region ${google_container_cluster.primary.location} --project ${google_container_cluster.primary.project}
+      kubectl create ns microservices || true
+      kubectl apply -f ../microservices/config.yaml -n microservices
+    EOT
+  }
+}
